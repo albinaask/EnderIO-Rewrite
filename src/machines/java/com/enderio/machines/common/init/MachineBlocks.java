@@ -5,6 +5,7 @@ import com.enderio.base.common.item.EIOCreativeTabs;
 import com.enderio.core.data.model.EIOModel;
 import com.enderio.machines.common.block.MachineBlock;
 import com.enderio.machines.common.block.ProgressMachineBlock;
+import com.enderio.machines.common.block.SolarPanelBlock;
 import com.enderio.machines.common.blockentity.base.MachineBlockEntity;
 import com.enderio.machines.common.item.FluidTankItem;
 import com.enderio.machines.common.item.PoweredSpawnerItem;
@@ -15,6 +16,7 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -86,6 +88,23 @@ public class MachineBlocks {
         .item()
         .tab(() -> EIOCreativeTabs.MACHINES)
         .build()
+        .register();
+
+    private static BlockBuilder<SolarPanelBlock, Registrate> solarPanel(String name){
+        return REGISTRATE.block(name, SolarPanelBlock::new)
+            .blockstate(((ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
+                .withExistingParent(ctx.getName(), prov.mcLoc("block/block"))
+                .customLoader(CompositeModelBuilder::begin)
+                .child("test", EIOModel.getExistingParent(prov.models(), EnderIO.loc("block/grave"))
+                    .texture("3", EnderIO.loc("block/enhanced_machine_chassis")))
+                .end()
+            )))
+            .item()
+            .tab(()->EIOCreativeTabs.MACHINES)
+            .build();
+    }
+
+    public static final BlockEntry<SolarPanelBlock> BASIC_SOLAR_PANEL = solarPanel("basic_solar_panel")
         .register();
 
     public static final BlockEntry<ProgressMachineBlock> PRIMITIVE_ALLOY_SMELTER = standardMachine("primitive_alloy_smelter", () -> MachineBlockEntities.PRIMITIVE_ALLOY_SMELTER)

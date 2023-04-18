@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:block/block",
+  "children": {
+    "test": {
+      "parent": "enderio:block/grave",
+      "textures": {
+        "3": "enderio:block/enhanced_machine_chassis"
+      }
+    }
+  },
+  "item_render_order": [
+    "test"
+  ],
+  "loader": "forge:composite"
+}

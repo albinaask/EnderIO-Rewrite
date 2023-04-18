@@ -86,7 +86,6 @@ public class MachineBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack heldItem = player.getItemInHand(hand);
         if (level.isClientSide() || hand != InteractionHand.MAIN_HAND){
             return InteractionResult.SUCCESS;
         }
